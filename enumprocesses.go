@@ -5,7 +5,10 @@ import (
 	"unsafe"
 )
 
-func (wp *WinAPI) EnumProcesses() (pids []uint32, err error) {
+// get all processes using WindowsAPI
+// this won't be used in the future release of
+// this software and WMI will be used if needed
+func (wp *GriAgent) EnumProcesses() (pids []uint32, err error) {
 
 	// var pids []uint32
 	var __pids []uint32
@@ -31,7 +34,7 @@ func (wp *WinAPI) EnumProcesses() (pids []uint32, err error) {
 
 }
 
-func (wp *WinAPI) enumProcesses(lpidProcess *uint32, cb uint32, lpcbNeeded *uint32) (err error) {
+func (wp *GriAgent) enumProcesses(lpidProcess *uint32, cb uint32, lpcbNeeded *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procEnumProcesses.Addr(), 3, uintptr(unsafe.Pointer(lpidProcess)), uintptr(cb), uintptr(unsafe.Pointer(lpcbNeeded)))
 	if r1 == 0 {
 		if e1 != 0 {
