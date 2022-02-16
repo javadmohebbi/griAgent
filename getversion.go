@@ -7,7 +7,9 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-func (wp *WinAPI) GetWinVersion() (byte, uint8, uint16) {
+// this function will report windwos version
+// Mjaor, Minor and build version are the returning values
+func (wp *GriAgent) GetWinVersion() (byte, uint8, uint16) {
 	h, err := windows.LoadLibrary("kernel32.dll")
 	if err != nil {
 		log.Fatalln("LoadLibrary", err)
