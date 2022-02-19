@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package griagent
 
 import (
@@ -188,10 +191,16 @@ func (e *WmiMonitorProcessEvents) deleteProcessTraceNotify() error {
 				e.alldone <- syscall.SIGQUIT
 			}
 
-			// if a child process stopped with exit code other than
-			// zero, update e.processExitErr with the erro message
-			if chErr != nil {
-				e.processExitErr <- chErr
+			// if it is last child process
+			// and exited with error,
+			// we will exit the app, otherwise,
+			// it will continiue
+			if len(e.monitoredchild) == 1 {
+				// if a child process stopped with exit code other than
+				// zero, update e.processExitErr with the erro message
+				if chErr != nil {
+					e.processExitErr <- chErr
+				}
 			}
 
 			if check {

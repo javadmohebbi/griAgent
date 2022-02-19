@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package griagent
 
 import (
@@ -12,6 +15,10 @@ import (
 // to monitor a specific process children
 // whether they are succeeded or not
 type WmiMonitorProcessEvents struct {
+
+	// this will keep the last child process
+	// exit status in case this app is not
+	lastExitStatus uint32
 
 	// normally seconds
 	// like 1, 2 , 5, ...

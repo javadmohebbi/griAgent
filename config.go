@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package griagent
 
 import (
@@ -55,6 +58,9 @@ type GriConfig struct {
 
 	// the directory that contains package files
 	Dir string
+
+	// Timeout in minutes to set the installation timeout context
+	Timeout uint
 }
 
 const (

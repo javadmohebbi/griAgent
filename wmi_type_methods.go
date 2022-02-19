@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package griagent
 
 import (
@@ -31,6 +34,12 @@ func NewWMIWmiMonitorProcessEvents(parentId uint32, within string, sig chan os.S
 		mu:             sync.Mutex{},
 	}
 
+}
+
+// this is used to provid a pointer array of monitored children
+// for the time that parent caller like griAgent needs to stop the child processess
+func (e *WmiMonitorProcessEvents) SetMonitoredChildren(mc *[]Monitoredchild) {
+	mc = &e.monitoredchild
 }
 
 // append process to the list of monitored child

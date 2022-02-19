@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package griagent
 
 import "golang.org/x/sys/windows"
