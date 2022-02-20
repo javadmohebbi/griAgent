@@ -6,7 +6,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/signal"
@@ -154,9 +153,8 @@ func prepareLogPathAndOutput() *os.File {
 		log.Fatalln(err)
 	}
 
-	// set logfile to log on terminal and file
-	mw := io.MultiWriter(os.Stdout, f)
-	log.SetOutput(mw)
+	// redirect windows service output to log file
+	log.SetOutput(f)
 
 	// return file for further usage
 	return f
